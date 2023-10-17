@@ -96,7 +96,7 @@ class HomePageState extends State<HomePage> with WindowListener {
             Expanded(
               child: ListView(
                 shrinkWrap: true, // 使ListView只占用其子部件所需的空间
-                children: [
+                children: const [
                   NoteTile(title: "Today is Monday..."),
                   NoteTile(title: "1. Eat breakfast\n2. Read a book\n3. Assignment"),
                   // ... 其他ListView子部件
@@ -122,8 +122,8 @@ class HomePageState extends State<HomePage> with WindowListener {
   void onWindowClose() async {
     final localContext = context; // 使用一个局部变量保存BuildContext
 
-    bool _isPreventClose = await windowManager.isPreventClose();
-    if (_isPreventClose) {
+    bool isPreventClose = await windowManager.isPreventClose();
+    if (isPreventClose) {
       showDialog(
         context: localContext, // 使用局部变量
         builder: (_) {
@@ -208,16 +208,16 @@ class HomePageState extends State<HomePage> with WindowListener {
 class NoteTile extends StatelessWidget {
   final String title;
 
-  NoteTile({required this.title});
+  const NoteTile({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       elevation: 5,
       child: ListTile(
         title: Text(title),
-        trailing: Icon(Icons.star_border),
+        trailing: const Icon(Icons.star_border),
         onTap: () {},
       ),
     );
